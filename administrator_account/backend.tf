@@ -7,9 +7,9 @@
 
 terraform {
     backend "s3" {
-        key            = ENTER_DESIRED_STATE_FILE_NAME
-        bucket         = ENTER_S3_BUCKET
-        region         = ENTER_REGION
-        dynamodb_table = ENTER_DYNAMODB_TABLE
+        key            = "administrator.terraform.tfstate"
+        bucket         = "terraformbackend-bucket-wmrjio8cem8n"
+        region         = "eu-west-1"
+        dynamodb_table = "TerraformBackend-Table-1OMF7F6CBQZ2P"
     }
 }

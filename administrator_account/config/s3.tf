@@ -1,6 +1,10 @@
+# FIXME: Create a centralized bucket in eu-west-1 and share it with all the
+# recorders.
+# FIXME: Set public access block
 resource "aws_s3_bucket" "new_config_bucket" {
   bucket = "config-bucket-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
   acl    = "private"
+  force_destroy = true
 
   dynamic "server_side_encryption_configuration" {
     for_each = var.encryption_enabled ? ["true"] : []

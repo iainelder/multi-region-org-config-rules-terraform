@@ -1,0 +1,99 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Terraform S3 Backend. The last CloudFormation template you'll ever need.
+
+Parameters:
+  # BucketName:
+  #   Default: isme-terraform-state-
+  ApplicationTagValue:
+    Type: String
+    Default: Terraform
+  PrincipalOrgID:
+    Type: String
+    Default: o-webyrpj5yp
+Resources:
+
+  Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Project
+          Value: !Ref ApplicationTagValue
+
+  # FIXME: need to create role to get access to this from other accounts
+  # https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html
+  # https://www.terraform.io/docs/language/settings/backends/s3.html#assume-role-configuration
+  # https://www.terraform.io/docs/language/settings/backends/s3.html#delegating-access
+  Table:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeType: S
+          AttributeName: LockID
+      KeySchema:
+        - AttributeName: LockID
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            # FIXME: name a role
+            Principal:
+              AWS:
+                - arn:aws:iam::638726906110:root # mem1
+            Condition:
+              StringEquals:
+                aws:PrincipalOrgID:
+                  - !Ref PrincipalOrgID
+      ManagedPolicyArns:
+        - !Ref Policy
+  
+  Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: s3:ListBucket
+            Resource: !GetAtt Bucket.Arn
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:PutObject
+            Resource:
+              - Fn::Join: ["", [!GetAtt Bucket.Arn, "/*"]]
+          - Effect: Allow
+            Action:
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+              - dynamodb:DeleteItem
+            Resource: !GetAtt Table.Arn
+
+Outputs:
+  BucketName:
+    Value: !Ref Bucket
+  TableName:
+    Value: !Ref Table
