@@ -1,5 +1,7 @@
 # Terraform Multi-Region Organization Config Rules
 
+See private terraform-config-workshop.md notes to make sense of this.
+
 ## Installation
 
 Instructions for installing the Terraform software can be found [here](https://learn.hashicorp.com/terraform/getting-started/install.html).
