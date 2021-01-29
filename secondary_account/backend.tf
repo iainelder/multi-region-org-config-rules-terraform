@@ -11,10 +11,7 @@ terraform {
         bucket         = "terraformbackend-bucket-wmrjio8cem8n"
         region         = "eu-west-1"
         dynamodb_table = "TerraformBackend-Table-1OMF7F6CBQZ2P"
-        # FIXME why is Terraform ignoreing the role_arn and session name?
-        # I have to work around this by setting the env vars with `aws sts assume-role`.
         role_arn       = "arn:aws:iam::933189656188:role/TerraformBackend-Role-TS5S9GI2L2HF"
-        session_name   = "terraform"
         acl            = "bucket-owner-full-control"
     }
 }
