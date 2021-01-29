@@ -1,7 +1,12 @@
 ---
+
+# https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html
+# https://www.terraform.io/docs/language/settings/backends/s3.html#assume-role-configuration
+# https://www.terraform.io/docs/language/settings/backends/s3.html#delegating-access
+
 AWSTemplateFormatVersion: 2010-09-09
 Description: >
-  Terraform S3 Backend. The last CloudFormation template you'll ever need.
+  Terraform S3 Backend. The last CloudFormation suit you'll ever wear.
 
 Parameters:
   # BucketName:
@@ -32,10 +37,6 @@ Resources:
         - Key: Project
           Value: !Ref ApplicationTagValue
 
-  # FIXME: need to create role to get access to this from other accounts
-  # https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html
-  # https://www.terraform.io/docs/language/settings/backends/s3.html#assume-role-configuration
-  # https://www.terraform.io/docs/language/settings/backends/s3.html#delegating-access
   Table:
     Type: AWS::DynamoDB::Table
     DeletionPolicy: Retain
