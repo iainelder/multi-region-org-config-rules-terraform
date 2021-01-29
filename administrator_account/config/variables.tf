@@ -5,7 +5,7 @@ variable "config_role_name" {
 
 variable "primary_region" {
   type        = string
-  default     = "us-east-1"
+  default     = "eu-west-1"
   description = "Primary region used for condition with global resources for Config Rules."
 }
 
