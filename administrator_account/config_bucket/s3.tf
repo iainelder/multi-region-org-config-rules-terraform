@@ -2,7 +2,7 @@
 # recorders.
 # FIXME: Set public access block
 resource "aws_s3_bucket" "new_config_bucket" {
-  bucket = "config-bucket-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
+  bucket_prefix = "config-bucket"
   acl    = "private"
   force_destroy = true
 
@@ -77,4 +77,8 @@ resource "aws_s3_bucket_policy" "config_logging_policy" {
   ]
 }
 POLICY
+}
+
+output "bucket_name" {
+  value = aws_s3_bucket.new_config_bucket.id
 }
