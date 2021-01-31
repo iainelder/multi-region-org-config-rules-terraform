@@ -17,6 +17,9 @@ provider "aws" {
   profile = "saa-secdel-iam"
 }
 
+resource "aws_iam_service_linked_role" "configservice" {
+  aws_service_name = "config.amazonaws.com"
+}
 
 module "config_bucket" {
   source = "./config_bucket"
@@ -37,7 +40,7 @@ module "config_service_eu_west_1" {
 
   bucket_name = module.config_bucket.bucket_name
   primary_region = var.primary_region
-  config_role_name = var.config_role_name
+  config_role_arn = aws_iam_service_linked_role.configservice.arn
 }
 
 module "config_service_us_east_1" {
@@ -49,6 +52,6 @@ module "config_service_us_east_1" {
 
   bucket_name = module.config_bucket.bucket_name
   primary_region = var.primary_region
-  config_role_name = var.config_role_name
+  config_role_arn = aws_iam_service_linked_role.configservice.arn
 }
 

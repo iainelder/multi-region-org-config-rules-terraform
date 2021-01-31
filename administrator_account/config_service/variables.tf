@@ -1,4 +1,4 @@
-variable "config_role_name" {
+variable "config_role_arn" {
   type = string
 }
 

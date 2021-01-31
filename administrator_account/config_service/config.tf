@@ -15,7 +15,7 @@ resource "aws_config_delivery_channel" "config_channel" {
 # set up the Config Recorder
 # -----------------------------------------------------------
 resource "aws_config_configuration_recorder" "config_recorder" {
-  role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/${var.config_role_name}"
+  role_arn = var.config_role_arn
 
   recording_group {
     all_supported                 = true
