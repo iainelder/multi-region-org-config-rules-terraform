@@ -1,5 +1,7 @@
 ---
 
+# To deploy this, use:
+# sam deploy --template-file terraform-backend.yaml --stack-name TerraformBackend --capabilities CAPABILITY_IAM --region eu-west-1 --profile saa-secdel-iam
 # https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html
 # https://www.terraform.io/docs/language/settings/backends/s3.html#assume-role-configuration
 # https://www.terraform.io/docs/language/settings/backends/s3.html#delegating-access
@@ -62,8 +64,7 @@ Resources:
             Action: sts:AssumeRole
             # FIXME: name a role
             Principal:
-              AWS:
-                - arn:aws:iam::638726906110:root # mem1
+              AWS: "*"
             Condition:
               StringEquals:
                 aws:PrincipalOrgID:
