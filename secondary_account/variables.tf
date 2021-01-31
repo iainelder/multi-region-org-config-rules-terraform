@@ -7,6 +7,10 @@ variable "source_account_number" {
   type        = string
 }
 
+variable "config_bucket_name" {
+  type = string
+}
+
 ##########
 # S3 Variables
 ##########

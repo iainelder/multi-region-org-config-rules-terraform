@@ -6,7 +6,7 @@ resource "aws_config_configuration_recorder_status" "config_recorder_status" {
 
 # Delivery channel resource and bucket location to specify configuration history location.
 resource "aws_config_delivery_channel" "config_channel" {
-  s3_bucket_name = aws_s3_bucket.new_config_bucket.id
+  s3_bucket_name = var.config_bucket_name
   depends_on = [aws_config_configuration_recorder.config_recorder]
 }
 
