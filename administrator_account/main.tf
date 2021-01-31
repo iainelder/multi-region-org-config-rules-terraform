@@ -10,6 +10,14 @@ provider "aws" {
   profile = "saa-secdel-iam"
 }
 
+# FIXME Make it so that eu-west-1 is the "main" region with the bucket, the
+# global resources, and so on.
+provider "aws" {
+  region = "eu-west-1"
+  profile = "saa-secdel-iam"
+}
+
+
 module "config_bucket" {
   source = "./config_bucket"
 
