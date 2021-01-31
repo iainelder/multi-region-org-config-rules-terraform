@@ -18,6 +18,7 @@ resource "aws_s3_bucket" "new_config_bucket" {
     }
   }
 }
+# ${aws_s3_bucket.new_config_bucket.arn}
 
 resource "aws_s3_bucket_policy" "config_logging_policy" {
   bucket = aws_s3_bucket.new_config_bucket.id
@@ -26,7 +27,7 @@ resource "aws_s3_bucket_policy" "config_logging_policy" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "AllowBucketAcl",
+      "Sid": "AWSConfigBucketPermissionsCheck",
       "Effect": "Allow",
       "Principal": {
         "Service": [
@@ -34,15 +35,21 @@ resource "aws_s3_bucket_policy" "config_logging_policy" {
         ]
       },
       "Action": "s3:GetBucketAcl",
-      "Resource": "${aws_s3_bucket.new_config_bucket.arn}",
-      "Condition": {
-        "Bool": {
-          "aws:SecureTransport": "true"
-        }
-      }
+      "Resource": "${aws_s3_bucket.new_config_bucket.arn}"
     },
     {
-      "Sid": "AllowConfigWriteAccess",
+      "Sid": "AWSConfigBucketExistenceCheck",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "config.amazonaws.com"
+        ]
+      },
+      "Action": "s3:ListBucket",
+      "Resource": "${aws_s3_bucket.new_config_bucket.arn}"
+    },
+    {
+      "Sid": "AWSConfigBucketDelivery",
       "Effect": "Allow",
       "Principal": {
         "Service": [
@@ -54,23 +61,6 @@ resource "aws_s3_bucket_policy" "config_logging_policy" {
       "Condition": {
         "StringEquals": {
           "s3:x-amz-acl": "bucket-owner-full-control"
-        },
-        "Bool": {
-          "aws:SecureTransport": "true"
-        }
-      }
-    },
-    {
-      "Sid": "RequireSSL",
-      "Effect": "Deny",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "s3:*",
-      "Resource": "${aws_s3_bucket.new_config_bucket.arn}/*",
-      "Condition": {
-        "Bool": {
-          "aws:SecureTransport": "false"
         }
       }
     }

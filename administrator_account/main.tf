@@ -55,3 +55,6 @@ module "config_service_us_east_1" {
   config_role_arn = aws_iam_service_linked_role.configservice.arn
 }
 
+output "config_bucket_name" {
+  value = module.config_bucket.bucket_name
+}
