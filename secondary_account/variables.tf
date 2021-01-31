@@ -10,12 +10,3 @@ variable "source_account_number" {
 variable "config_bucket_name" {
   type = string
 }
-
-##########
-# S3 Variables
-##########
-variable "encryption_enabled" {
-  type        = bool
-  default     = true
-  description = "When set to 'true' the resource will have AES256 encryption enabled by default"
-}
