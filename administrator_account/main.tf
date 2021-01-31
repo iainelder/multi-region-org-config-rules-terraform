@@ -58,3 +58,8 @@ module "config_service_us_east_1" {
 output "config_bucket_name" {
   value = module.config_bucket.bucket_name
 }
+
+output "config_aggregator_arn" {
+    value = aws_config_configuration_aggregator.organization.arn 
+    description = "AWS Config Aggregator ARN"
+}
