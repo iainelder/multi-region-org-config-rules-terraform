@@ -20,51 +20,51 @@ resource "aws_s3_bucket_public_access_block" "general_block" {
 
 resource "aws_s3_bucket_policy" "config_logging_policy" {
   bucket = aws_s3_bucket.new_config_bucket.id
-  policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  policy = <<-POLICY
     {
-      "Sid": "AWSConfigBucketPermissionsCheck",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-         "config.amazonaws.com"
-        ]
-      },
-      "Action": "s3:GetBucketAcl",
-      "Resource": "${aws_s3_bucket.new_config_bucket.arn}"
-    },
-    {
-      "Sid": "AWSConfigBucketExistenceCheck",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "config.amazonaws.com"
-        ]
-      },
-      "Action": "s3:ListBucket",
-      "Resource": "${aws_s3_bucket.new_config_bucket.arn}"
-    },
-    {
-      "Sid": "AWSConfigBucketDelivery",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-         "config.amazonaws.com"
-        ]
-      },
-      "Action": "s3:PutObject",
-      "Resource": "${aws_s3_bucket.new_config_bucket.arn}/AWSLogs/*",
-      "Condition": {
-        "StringEquals": {
-          "s3:x-amz-acl": "bucket-owner-full-control"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AWSConfigBucketPermissionsCheck",
+          "Effect": "Allow",
+          "Principal": {
+            "Service": [
+            "config.amazonaws.com"
+            ]
+          },
+          "Action": "s3:GetBucketAcl",
+          "Resource": "${aws_s3_bucket.new_config_bucket.arn}"
+        },
+        {
+          "Sid": "AWSConfigBucketExistenceCheck",
+          "Effect": "Allow",
+          "Principal": {
+            "Service": [
+              "config.amazonaws.com"
+            ]
+          },
+          "Action": "s3:ListBucket",
+          "Resource": "${aws_s3_bucket.new_config_bucket.arn}"
+        },
+        {
+          "Sid": "AWSConfigBucketDelivery",
+          "Effect": "Allow",
+          "Principal": {
+            "Service": [
+            "config.amazonaws.com"
+            ]
+          },
+          "Action": "s3:PutObject",
+          "Resource": "${aws_s3_bucket.new_config_bucket.arn}/AWSLogs/*",
+          "Condition": {
+            "StringEquals": {
+              "s3:x-amz-acl": "bucket-owner-full-control"
+            }
+          }
         }
-      }
+      ]
     }
-  ]
-}
-POLICY
+    POLICY
 }
 
 output "bucket_name" {

@@ -10,21 +10,21 @@ resource "aws_config_configuration_aggregator" "organization" {
 resource "aws_iam_role" "org_agg" {
   name = "AWSConfigRoleForOrganizations"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  assume_role_policy = <<-POLICY
     {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "config.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "",
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "config.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
     }
-  ]
-}
-EOF
+    POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "org_agg_role" {
