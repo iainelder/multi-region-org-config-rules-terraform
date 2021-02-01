@@ -1,4 +1,4 @@
-variable region {
+variable primary_region {
   default = "us-east-1"
 }
 

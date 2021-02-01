@@ -3,10 +3,10 @@ resource "aws_iam_service_linked_role" "configservice" {
 }
 
 module "us-east-1" {
-  source = "./aggregation"
+  source = "../config_service"
 
-  source_account_number = var.source_account_number
-  config_bucket_name = var.config_bucket_name
+  bucket_name = var.config_bucket_name
+  primary_region = var.primary_region
   config_role_arn = aws_iam_service_linked_role.configservice.arn
   providers = {
     aws = aws.secondary-account-virginia
@@ -14,10 +14,10 @@ module "us-east-1" {
 }
 
 module "us-east-2" {
-  source = "./aggregation"
+  source = "../config_service"
 
-  source_account_number = var.source_account_number
-  config_bucket_name = var.config_bucket_name
+  bucket_name = var.config_bucket_name
+  primary_region = var.primary_region
   config_role_arn = aws_iam_service_linked_role.configservice.arn
   providers = {
     aws = aws.secondary-account-ohio
