@@ -32,7 +32,7 @@ module "config_bucket" {
 }
 
 module "config_service_eu_west_1" {
-  source = "./config_service"
+  source = "../config_service"
 
   providers = {
     aws = aws.eu_west_1
@@ -44,7 +44,7 @@ module "config_service_eu_west_1" {
 }
 
 module "config_service_us_east_1" {
-  source = "./config_service"
+  source = "../config_service"
 
   providers = {
     aws = aws.us_east_1
