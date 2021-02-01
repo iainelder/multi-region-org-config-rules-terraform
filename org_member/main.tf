@@ -7,7 +7,7 @@ module "us-east-1" {
 
   bucket_name = var.config_bucket_name
   primary_region = var.primary_region
-  config_role_arn = aws_iam_service_linked_role.configservice.arn
+  recorder_role_arn = aws_iam_service_linked_role.configservice.arn
   providers = {
     aws = aws.secondary-account-virginia
   }
@@ -18,7 +18,7 @@ module "us-east-2" {
 
   bucket_name = var.config_bucket_name
   primary_region = var.primary_region
-  config_role_arn = aws_iam_service_linked_role.configservice.arn
+  recorder_role_arn = aws_iam_service_linked_role.configservice.arn
   providers = {
     aws = aws.secondary-account-ohio
   }

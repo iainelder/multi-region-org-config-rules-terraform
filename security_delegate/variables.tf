@@ -13,11 +13,6 @@ variable "primary_region" {
   description = "Primary region used for condition with global resources for Config Rules."
 }
 
-variable "config_role_name" {
-  description = "Name of Organization Config Role"
-  default = "OrganizationConfigRole"
-}
-
 variable "aggregator_name" {
   description = "Name of Config Aggregator"
   default = "organization-aggregator"

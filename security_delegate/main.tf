@@ -40,7 +40,7 @@ module "config_service_eu_west_1" {
 
   bucket_name = module.config_bucket.bucket_name
   primary_region = var.primary_region
-  config_role_arn = aws_iam_service_linked_role.configservice.arn
+  recorder_role_arn = aws_iam_service_linked_role.configservice.arn
 }
 
 module "config_service_us_east_1" {
@@ -52,7 +52,7 @@ module "config_service_us_east_1" {
 
   bucket_name = module.config_bucket.bucket_name
   primary_region = var.primary_region
-  config_role_arn = aws_iam_service_linked_role.configservice.arn
+  recorder_role_arn = aws_iam_service_linked_role.configservice.arn
 }
 
 output "config_bucket_name" {

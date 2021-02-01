@@ -1,4 +1,4 @@
-variable "config_role_arn" {
+variable "recorder_role_arn" {
   type = string
 }
 
@@ -11,4 +11,3 @@ variable bucket_name {
     type = string
     description = "The name of the Amazon S3 bucket to which AWS Config delivers configuration snapshots and configuration history files. "
 }
-
