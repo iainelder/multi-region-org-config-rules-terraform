@@ -27,8 +27,6 @@ module "config_bucket" {
   providers = {
     aws = aws.eu_west_1
   }
-
-  encryption_enabled = var.encryption_enabled
 }
 
 module "config_service_eu_west_1" {
