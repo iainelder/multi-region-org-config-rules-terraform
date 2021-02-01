@@ -1,4 +1,4 @@
-variable primary_region {
+variable region_to_record_global_events {
   default = "us-east-1"
 }
 

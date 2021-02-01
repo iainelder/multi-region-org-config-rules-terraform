@@ -2,7 +2,7 @@ variable "recorder_role_arn" {
   type = string
 }
 
-variable "primary_region" {
+variable "region_to_record_global_events" {
   type        = string
   description = "Primary region used for condition with global resources for Config Rules."
 }

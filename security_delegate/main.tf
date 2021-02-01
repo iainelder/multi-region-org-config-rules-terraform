@@ -37,7 +37,7 @@ module "config_service_eu_west_1" {
   }
 
   bucket_name = module.config_bucket.bucket_name
-  primary_region = var.primary_region
+  region_to_record_global_events = var.region_to_record_global_events
   recorder_role_arn = aws_iam_service_linked_role.configservice.arn
 }
 
@@ -49,7 +49,7 @@ module "config_service_us_east_1" {
   }
 
   bucket_name = module.config_bucket.bucket_name
-  primary_region = var.primary_region
+  region_to_record_global_events = var.region_to_record_global_events
   recorder_role_arn = aws_iam_service_linked_role.configservice.arn
 }
 

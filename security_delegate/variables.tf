@@ -1,7 +1,7 @@
-variable "primary_region" {
+variable "region_to_record_global_events" {
   type        = string
   default     = "eu-west-1"
-  description = "Primary region used for condition with global resources for Config Rules."
+  description = "Region in which global events are recorded"
 }
 
 variable "aggregator_name" {

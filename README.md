@@ -198,7 +198,7 @@ Here are the variables for the administrator account configuration:
 | config_role_name | Name of the IAM Role used for AWS Config | string | `"OrganizationConfigRole"` | yes |
 | aggregator_name | Name of the AWS Config aggregator | string | `"organization-aggregator"` | yes |
 | encryption_enabled | Determines if server-side encryption is enabled for S3 Bucket | boolean | `"true"` | yes |
-| primary_region | Primary region used for condition with global resources for Config Rules. | boolean | `"true"` | yes |
+| region_to_record_global_events | Primary region used for condition with global resources for Config Rules. | boolean | `"true"` | yes |
 
 Here are the variables for the secondary account configuration:
 
